@@ -17,6 +17,7 @@ steps:
     SecretsFilter: '*'
     RunAsPreJob: true
 - task: AzureResourceManagerTemplateDeployment@3
+  displayName: 'Provisioning Blob Storage resources'
   inputs:
     deploymentScope: 'Resource Group'
     azureResourceManagerConnection: 'resourcegroupconnection_haomobileapprg'
