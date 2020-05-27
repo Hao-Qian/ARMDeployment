@@ -1,0 +1,24 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: AzureResourceManagerTemplateDeployment@3
+  inputs:
+    deploymentScope: 'Resource Group'
+    azureResourceManagerConnection: 'resourcegroupconnection_haomobileapprg'
+    subscriptionId: 'bf8357d6-e3b8-4a35-9fee-88fa14466e95'
+    action: 'Create Or Update Resource Group'
+    resourceGroupName: 'haomobileapprg'
+    location: 'UK South'
+    templateLocation: 'Linked artifact'
+    csmFile: 'storage-blob-container/azuredeploy.json'
+    csmParametersFile: 'storage-blob-container/azuredeploy.parameters.json'
+    deploymentMode: 'Incremental'
