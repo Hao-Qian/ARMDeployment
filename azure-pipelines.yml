@@ -10,11 +10,17 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
+- task: AzureKeyVault@1
+  inputs:
+    azureSubscription: 'Visual Studio Enterprise(bf8357d6-e3b8-4a35-9fee-88fa14466e95)'
+    KeyVaultName: 'CompanyFinderKeyVault'
+    SecretsFilter: '*'
+    RunAsPreJob: true
 - task: AzureResourceManagerTemplateDeployment@3
   inputs:
     deploymentScope: 'Resource Group'
     azureResourceManagerConnection: 'resourcegroupconnection_haomobileapprg'
-    subscriptionId: 'bf8357d6-e3b8-4a35-9fee-88fa14466e95'
+    subscriptionId: $(subscriptionId)
     action: 'Create Or Update Resource Group'
     resourceGroupName: 'haomobileapprg'
     location: 'UK South'
